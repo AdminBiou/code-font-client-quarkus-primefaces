@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui">
+<h:head>
+    <meta charset="UTF-8"/>
+    <title>Système Fenêtre Web</title>
+    <style>
+        h2 {
+            background: #3630a3;
+            color: white;
+            padding: 15px;
+            margin: 0;
+            text-align: center;
+        }
+
+        .container {
+            display: flex;
+            justify-content: space-between;
+            margin: 20px;
+            gap: 20px;
+        }
+
+        .left-panel, .right-panel {
+            background: #f4f4f4;
+            padding: 15px;
+            border-radius: 8px;
+        }
+
+        .left-panel {
+            flex: 1;
+        }
+
+        .right-panel {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            width: 250px;
+        }
+
+        .operations-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 70px);
+            grid-gap: 10px;
+            justify-content: center;
+        }
+
+        .big-buttons {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            align-items: center;
+            margin-top: 20px;
+        }
+
+        .operations-grid p\:commandButton,
+        .big-buttons p\:commandButton {
+            font-size: 16px;
+        }
+
+        .operations-grid p\:commandButton {
+            width: 70px;
+            height: 50px;
+        }
+
+        .big-buttons p\:commandButton {
+            width: 180px;
+            height: 50px;
+        }
+
+        .my-heading-row {
+            background-color: #e0e0e0;
+            font-weight: bold;
+            padding: 8px;
+            text-align: center;
+        }
+
+        .about-help-btns {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-top: 15px;
+        }
+
+        .about-help-btns p\:commandButton {
+            width: 100px;
+        }
+    </style>
+</h:head>
+
+<h:body>
+<h2>🖥️ Système Fenêtre - Version Web</h2>
+
+<h:form>
+    <div class="container">
+
+        <!-- Colonne gauche : saisie et résultat -->
+        <div class="left-panel">
+            <p:panelGrid columns="2" styleClass="ui-fluid" columnClasses="label,value">
+                <p:row styleClass="my-heading-row">Paramètres de calcul</p:row>
+                <p:outputLabel for="a" value="a :" />
+                <p:inputText id="a" value="#{calculBean.a}" />
+
+                <p:outputLabel for="b" value="b :" />
+                <p:inputText id="b" value="#{calculBean.b}" />
+
+                <p:outputLabel for="c" value="c :" />
+                <p:inputText id="c" value="#{calculBean.c}" />
+
+                <p:outputLabel for="resultat" value="Résultat :" />
+                <h:panelGroup id="resultat">
+                    <h:outputText value="#{calculBean.resultat}" />
+                </h:panelGroup>
+            </p:panelGrid>
+        </div>
+
+        <!-- Colonne droite : boutons -->
+        <div class="right-panel">
+            <div class="operations-grid">
+                <p:commandButton value="+" action="#{calculBean.addition}" update="resultat" />
+                <p:commandButton value="-" action="#{calculBean.soustraction}" update="resultat" />
+                <p:commandButton value="*" action="#{calculBean.multiplication}" update="resultat" />
+                <p:commandButton value="/" action="#{calculBean.division}" update="resultat" />
+            </div>
+
+            <div class="big-buttons">
+                <p:commandButton value="Équation 1D" action="#{calculBean.eq1}" update="resultat"/>
+                <p:commandButton value="Équation 2D" action="#{calculBean.eq2}" update="resultat"/>
+                <p:commandButton value="Effacer" action="#{calculBean.effacer}" update="@form"/>
+
+                <div class="about-help-btns">
+                    <p:commandButton value="Aide" onclick="PF('dlgAide').show(); return false;"/>
+                    <p:commandButton value="À propos" onclick="PF('dlgAbout').show(); return false;"/>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</h:form>
+
+<!-- Fenêtres modales -->
+<p:dialog header="Aide" widgetVar="dlgAide" modal="true" closable="true" width="400">
+    <h:outputText value="Aide : Remplissez a, b, c puis choisissez l’opération ou la résolution d'équation."/>
+</p:dialog>
+
+<p:dialog header="À propos" widgetVar="dlgAbout" modal="true" closable="true" width="400">
+    <h:outputText value="ℹ️ Système Fenêtre Web - Version 1.0 - Développé par MOBIO Patrick"/>
+</p:dialog>
+
+</h:body>
+</html>
