@@ -9,103 +9,44 @@
         h2 {
             background: #3630a3;
             color: white;
-            padding: 15px;
-            margin: 0;
+            padding: 15px;                               
+            margin: 0;                        
             text-align: center;
         }
-
-        .container {
-            display: flex;
-            justify-content: space-between;
-            margin: 20px;
-            gap: 20px;
-        }
-
-        .left-panel, .right-panel {
-            background: #f4f4f4;
-            padding: 15px;
-            border-radius: 8px;
-        }
-
-        .left-panel {
-            flex: 1;
-        }
-
-        .right-panel {
-            display: flex;
-            flex-direction: column;
-            gap: 20px;
-            width: 250px;
-        }
-
-        .operations-grid {
-            display: grid;
-            grid-template-columns: repeat(2, 70px);
-            grid-gap: 10px;
-            justify-content: center;
-        }
-
-        .big-buttons {
-            display: flex;
-            flex-direction: column;
-            gap: 10px;
-            align-items: center;
-            margin-top: 20px;
-        }
-
-        .operations-grid p\:commandButton,
-        .big-buttons p\:commandButton {
-            font-size: 16px;
-        }
-
-        .operations-grid p\:commandButton {
-            width: 70px;
-            height: 50px;
-        }
-
-        .big-buttons p\:commandButton {
-            width: 180px;
-            height: 50px;
-        }
-
-        .my-heading-row {
-            background-color: #e0e0e0;
-            font-weight: bold;
-            padding: 8px;
-            text-align: center;
-        }
-
-        .about-help-btns {
-            display: flex;
-            justify-content: center;
-            gap: 15px;
-            margin-top: 15px;
-        }
-
-        .about-help-btns p\:commandButton {
-            width: 100px;
-        }
+        .container { display: flex; justify-content: space-between; margin: 20px; gap: 20px; }
+        .left-panel, .right-panel { background: #f4f4f4; padding: 15px; border-radius: 8px; }
+        .left-panel { flex: 1; }
+        .right-panel { display: flex; flex-direction: column; gap: 20px; width: 250px; }
+        .operations-grid { display: grid; grid-template-columns: repeat(2, 70px); grid-gap: 10px; justify-content: center; }
+        .big-buttons { display: flex; flex-direction: column; gap: 10px; align-items: center; margin-top: 20px; }
+        .operations-grid p\:commandButton, .big-buttons p\:commandButton { font-size: 16px; }
+        .operations-grid p\:commandButton { width: 70px; height: 50px; }
+        .big-buttons p\:commandButton { width: 180px; height: 50px; }
+        .my-heading-row { background-color: #e0e0e0; font-weight: bold; padding: 8px; text-align: center; }
+        .about-help-btns { display: flex; justify-content: center; gap: 15px; margin-top: 15px; }
+        .about-help-btns p\:commandButton { width: 100px; }
     </style>
 </h:head>
 
 <h:body>
 <h2>🖥️ Système Fenêtre - Version Web</h2>
 
-<h:form>
+<h:form id="calcForm">
     <div class="container">
 
         <!-- Colonne gauche : saisie et résultat -->
         <div class="left-panel">
             <p:panelGrid columns="2" styleClass="ui-fluid" columnClasses="label,value">
                 <p:row styleClass="my-heading-row">Paramètres de calcul</p:row>
+
                 <p:outputLabel for="a" value="a :" />
-                <p:inputText id="a" value="#{calculBean.a}" />
+                <p:inputText id="a" value="#{calculBean.a}" style="width:100%"/>
 
                 <p:outputLabel for="b" value="b :" />
-                <p:inputText id="b" value="#{calculBean.b}" />
+                <p:inputText id="b" value="#{calculBean.b}" style="width:100%"/>
 
                 <p:outputLabel for="c" value="c :" />
-                <p:inputText id="c" value="#{calculBean.c}" />
+                <p:inputText id="c" value="#{calculBean.c}" style="width:100%"/>
 
                 <p:outputLabel for="resultat" value="Résultat :" />
                 <h:panelGroup id="resultat">
@@ -117,15 +58,15 @@
         <!-- Colonne droite : boutons -->
         <div class="right-panel">
             <div class="operations-grid">
-                <p:commandButton value="+" action="#{calculBean.addition}" update="resultat" />
-                <p:commandButton value="-" action="#{calculBean.soustraction}" update="resultat" />
-                <p:commandButton value="*" action="#{calculBean.multiplication}" update="resultat" />
-                <p:commandButton value="/" action="#{calculBean.division}" update="resultat" />
+                <p:commandButton value="+" action="#{calculBean.addition}" update=":calcForm:resultat" />
+                <p:commandButton value="-" action="#{calculBean.soustraction}" update=":calcForm:resultat" />
+                <p:commandButton value="*" action="#{calculBean.multiplication}" update=":calcForm:resultat" />
+                <p:commandButton value="/" action="#{calculBean.division}" update=":calcForm:resultat" />
             </div>
 
             <div class="big-buttons">
-                <p:commandButton value="Équation 1D" action="#{calculBean.eq1}" update="resultat"/>
-                <p:commandButton value="Équation 2D" action="#{calculBean.eq2}" update="resultat"/>
+                <p:commandButton value="Équation 1D" action="#{calculBean.eq1}" update=":calcForm:resultat"/>
+                <p:commandButton value="Équation 2D" action="#{calculBean.eq2}" update=":calcForm:resultat"/>
                 <p:commandButton value="Effacer" action="#{calculBean.effacer}" update="@form"/>
 
                 <div class="about-help-btns">
